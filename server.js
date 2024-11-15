@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+var cors = require('cors')
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const Router = require("./routes/useRouter");
@@ -8,6 +9,9 @@ const categoryRouter = require("./routes/categoryRouter");
 const productRouter= require('./routes/productRouter')
 const uploadRouter = require('./routes/upload')
 const app = express();
+
+app.use(cors())
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload({
