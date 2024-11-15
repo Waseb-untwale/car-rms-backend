@@ -26,6 +26,8 @@ const userCtrl = {
 
       res.cookie("refreshtoken", refreshtoken, {
         httpOnly: true,
+        secure: false,
+        sameSite: 'none',
         path: "/user/refresh_token",
       });
       res.json({ accesstoken });
@@ -44,7 +46,7 @@ const userCtrl = {
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) return res.json({ msg: "please Login or Register" });
         const accesstoken = createAccessToken({ id: user.id });
-        res.json({ accesstoken });
+        res.status(200).json({ accesstoken });
       });
     } catch (err) {
       res.status(500).json({ msg: err.message });
